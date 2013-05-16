@@ -19,8 +19,11 @@ end
 
 networkprefix = local_ip.gsub( (/\.\d$|\.\d\d$|\.\d\d\d$/), '' ).to_s
 
+iplist = Hash.new
 host = 1
 255.times do
-  puts "#{networkprefix}.#{host} " + (pingable?("#{networkprefix}.#{host}") ? "up" : "down")
+  ip = "#{networkprefix}.#{host}"
+  iplist[ip] = pingable?(ip) ? "up" : "down"
+  puts "#{ip} - #{iplist[ip]}"
   host += 1
 end
